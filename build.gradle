@@ -2,11 +2,11 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.3.3-SNAPSHOT'
 	id 'io.spring.dependency-management' version '1.1.6'
-	id 'pl.allegro.tech.build.axion-release' version '1.13.4'
+	id 'pl.allegro.tech.build.axion-release' version '1.18.2'
 }
 
 group = 'com.aperalta'
-version = '0.0.1-SNAPSHOT'
+project.version = scmVersion.version
 
 java {
 	toolchain {
@@ -38,6 +38,6 @@ scmVersion {
 		type = 'git'
 	}
 	tag {
-		prefix = ''
+		prefix = 'store-app'
 	}
 }
