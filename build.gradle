@@ -49,6 +49,6 @@ scmVersion {
 		type = 'git'
 	}
 	tag {
-		prefix = 'store-app'
+		prefix = 'store-api'
 	}
 }
