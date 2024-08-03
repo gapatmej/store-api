@@ -24,6 +24,5 @@ application:
   jwt:
     secret: MGRhN2RjNmE4NzBhNzdlNjZmYzczMTJjNDcxODAzMjllNjM0ZWYwYjVlZWJlZGE5NjUwNTVjNTc5NTQ5OWZhNmM2N2E3ODU5MjgxOGY1ZGY1ZmRlODkzY2QyMDQyOTM1NDI4M2Y2YTNhOTUzZTk0N2Y5NDVkZjU3NzRkZWRjMWE=
     token-validity-in-seconds: 86400
-    token-validity-in-seconds-for-remember-me: 2592000
   security:
     content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; frame-ancestors 'self';"

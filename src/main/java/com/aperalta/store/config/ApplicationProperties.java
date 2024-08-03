@@ -37,7 +37,6 @@ public class ApplicationProperties {
     public static class Jwt {
         private String secret;
         private long tokenValidityInSeconds;
-        private long tokenValidityInSecondsForRememberMe;
 
         public String getSecret() {
             return secret;
@@ -55,13 +54,6 @@ public class ApplicationProperties {
             this.tokenValidityInSeconds = tokenValidityInSeconds;
         }
 
-        public long getTokenValidityInSecondsForRememberMe() {
-            return tokenValidityInSecondsForRememberMe;
-        }
-
-        public void setTokenValidityInSecondsForRememberMe(long tokenValidityInSecondsForRememberMe) {
-            this.tokenValidityInSecondsForRememberMe = tokenValidityInSecondsForRememberMe;
-        }
     }
 
     public static class Security {

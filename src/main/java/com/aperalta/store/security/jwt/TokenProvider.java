@@ -31,26 +31,18 @@ public class TokenProvider {
 
     private final long tokenValidityInMilliseconds;
 
-    private final long tokenValidityInMillisecondsForRememberMe;
-
     public TokenProvider(ApplicationProperties applicationProperties) {
         byte[] keyBytes = Decoders.BASE64.decode(applicationProperties.getJwt().getSecret());
         key = Keys.hmacShaKeyFor(keyBytes);
         jwtParser = Jwts.parserBuilder().setSigningKey(key).build();
         this.tokenValidityInMilliseconds = 1000 * applicationProperties.getJwt().getTokenValidityInSeconds();
-        this.tokenValidityInMillisecondsForRememberMe = 1000 * applicationProperties.getJwt().getTokenValidityInSecondsForRememberMe();
     }
 
-    public String createToken(Authentication authentication, boolean rememberMe) {
+    public String createToken(Authentication authentication) {
         String authorities = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(","));
 
         long now = (new Date()).getTime();
-        Date validity;
-        if (rememberMe) {
-            validity = new Date(now + this.tokenValidityInMillisecondsForRememberMe);
-        } else {
-            validity = new Date(now + this.tokenValidityInMilliseconds);
-        }
+        Date validity = new Date(now + this.tokenValidityInMilliseconds);
 
         return Jwts
                 .builder()
