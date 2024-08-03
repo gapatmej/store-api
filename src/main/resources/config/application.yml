@@ -14,6 +14,9 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  liquibase:
+    change-log: classpath:config/liquibase/changelog/db.changelog-master.yml
+    enabled: true
 server:
   port: 8081
 
@@ -23,4 +26,4 @@ application:
     token-validity-in-seconds: 86400
     token-validity-in-seconds-for-remember-me: 2592000
   security:
-    content-security-policy: "script-src 'self'; object-src 'none';"
+    content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; frame-ancestors 'self';"

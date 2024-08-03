@@ -35,7 +35,9 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable)
+                .csrf(csrf -> csrf
+                        .ignoringRequestMatchers("/h2-console/**")
+                )
                 .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(exceptions -> exceptions
                         .authenticationEntryPoint((request, response, authException) -> {
@@ -49,7 +51,8 @@ public class SecurityConfiguration {
                         .contentSecurityPolicy(csp -> csp
                                 .policyDirectives(applicationProperties.getSecurity().getContentSecurityPolicy())
                         )
-                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin)
+                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin
+                        )
                         .httpStrictTransportSecurity(hsts -> hsts.includeSubDomains(true).maxAgeInSeconds(31536000))
                 )
                 .sessionManagement(sessionManagement -> sessionManagement
@@ -61,6 +64,7 @@ public class SecurityConfiguration {
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                                .requestMatchers("/h2-console/**").permitAll()
                                 .requestMatchers("/api/authenticate").permitAll()
                                 .requestMatchers("/api/admin/**").hasAuthority(AuthoritiesConstants.ADMIN)
                                 .requestMatchers("/public/**").permitAll()
