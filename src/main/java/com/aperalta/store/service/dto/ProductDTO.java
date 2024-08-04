@@ -1,23 +1,36 @@
 package com.aperalta.store.service.dto;
 
+import com.aperalta.store.repository.enumeration.ProductCategoryEnum;
+import com.aperalta.store.web.rest.validators.NullOrNotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import java.math.BigDecimal;
 
 public class ProductDTO extends AbstractMainDTO {
 
+    @NotNull(message = "mainCode cannot be null")
     private String mainCode;
 
+    @NullOrNotBlank(message = "auxiliaryCode cannot be blank")
     private String auxiliaryCode;
 
+    @NullOrNotBlank(message = "barcode cannot be blank")
     private String barcode;
 
+    @NotNull(message = "productCategory cannot be null")
+    private ProductCategoryEnum productCategory;
+
+    @NotNull(message = "mainCode cannot be null")
     private String name;
 
+    @NotNull(message = "price cannot be null")
     private BigDecimal price;
 
     private String attribute1;
 
     private String attribute2;
 
+    @NotNull(message = "active cannot be null")
     private boolean active;
 
     public String getMainCode() {
@@ -42,6 +55,14 @@ public class ProductDTO extends AbstractMainDTO {
 
     public void setBarcode(String barcode) {
         this.barcode = barcode;
+    }
+
+    public ProductCategoryEnum getProductCategory() {
+        return productCategory;
+    }
+
+    public void setProductCategory(ProductCategoryEnum productCategory) {
+        this.productCategory = productCategory;
     }
 
     public String getName() {

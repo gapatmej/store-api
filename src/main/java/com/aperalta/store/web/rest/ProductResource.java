@@ -1,6 +1,7 @@
 package com.aperalta.store.web.rest;
 
 import com.aperalta.store.service.ProductService;
+import com.aperalta.store.service.StatisticsService;
 import com.aperalta.store.service.dto.ProductDTO;
 import com.aperalta.store.utils.GsonUtils;
 import com.aperalta.store.web.rest.util.HeaderUtil;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -21,14 +23,17 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
+@Validated
 public class ProductResource extends AbstractResource {
 
     private final ProductService productService;
+    private final StatisticsService statisticsService;
 
-    public ProductResource(ProductService productService) {
+    public ProductResource(ProductService productService, StatisticsService statisticsService) {
 
         super(ProductResource.class, "product");
         this.productService = productService;
+        this.statisticsService = statisticsService;
     }
 
     @PostMapping("/products")
@@ -36,6 +41,7 @@ public class ProductResource extends AbstractResource {
         log.debug("REST request to save Product : {}", GsonUtils.entityToJson(productDTO));
 
         ProductDTO result = productService.save(productDTO);
+        statisticsService.increaseStatistics(result);
         return ResponseEntity.created(new URI("/api/products/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(entityName, result.getId().toString()))
             .body(result);
@@ -54,7 +60,7 @@ public class ProductResource extends AbstractResource {
     @DeleteMapping("/products/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
         log.debug("REST request to delete Product : {}", id);
-        productService.delete(id);
+        productService.delete(id).ifPresent(statisticsService::decreaseStatistics);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(entityName, id.toString())).build();
     }
 

@@ -42,9 +42,11 @@ public class ProductServiceImpl extends AbstractService implements ProductServic
     }
 
     @Override
-    public void delete(Long id) {
+    public Optional<ProductDTO> delete(Long id) {
         log.debug("Request to delete Product : {}", id);
-        productRepository.deleteById(id);
+        Optional<ProductDTO> productDTO = findOneDto(id);
+        productDTO.ifPresent(p->productRepository.deleteById(p.getId()));
+        return productDTO;
     }
 
     @Override
@@ -61,6 +63,7 @@ public class ProductServiceImpl extends AbstractService implements ProductServic
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<Product> findOne(Long id) {
         log.debug("Request to get Product : {}", id);
         return productRepository.findById(id);

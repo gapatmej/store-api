@@ -64,14 +64,13 @@ Esta API permite la gestión de productos con varios endpoints para crear, actua
 **Request Body:**
 ```json
 {
-    "mainCode": "011",
-    "auxiliaryCode": "011",
-    "barcode": "011",
-    "name": "Producto 1 con accesorios",
-    "price": 10,
-    "attribute1": "con todo",
-    "attribute2": "",
-    "active": true
+  "mainCode": "017",
+  "productCategory": "ELECTRONICS",
+  "name": "Producto 1 con accesorios",
+  "price": 10,
+  "attribute1": "Con mantenimiento",
+  "attribute2": "",
+  "active": true
 }
 ```
 ### 2. Update Product
@@ -83,15 +82,14 @@ Esta API permite la gestión de productos con varios endpoints para crear, actua
 **Request Body:**
 ```json
 {
-    "id": "1001",
-    "mainCode": "011",
-    "auxiliaryCode": "011",
-    "barcode": "011",
-    "name": "Producto 1 con accesorios",
-    "price": 10,
-    "attribute1": "Con mantenimiento",
-    "attribute2": "",
-    "active": true
+  "id": "1001",
+  "mainCode": "017",
+  "productCategory": "ELECTRONICS",
+  "name": "Producto 1 con accesorios",
+  "price": 10,
+  "attribute1": "Con mantenimiento",
+  "attribute2": "",
+  "active": false
 }
 ```
 ### 3. Delete Product
@@ -162,5 +160,40 @@ GET /products?search=id[]1001*name:con accesorios&page=0&size=5
     "active": true
 }
 ```
+# Uso del Sistema de Métricas de Categorías de Producto
 
+Este documento explica cómo utilizar el sistema de métricas para categorías de productos implementado en la aplicación.
 
+## Acceso a las Métricas
+
+Una vez que el sistema esté en funcionamiento, puedes acceder a las métricas a través de los siguientes endpoints:
+
+### Endpoint de Prometheus
+
+Visita [http://localhost:8081/actuator/prometheus](http://localhost:8080/actuator/prometheus) para ver todas las métricas en formato compatible con Prometheus.
+
+### Endpoint de Métricas de Actuator
+
+Visita [http://localhost:8081/actuator/metrics](http://localhost:8080/actuator/metrics) para ver un resumen de todas las métricas expuestas.
+
+### Métricas Específicas
+
+Para ver métricas específicas para una categoría, utiliza la URL:
+
+http://localhost:8080/actuator/metrics/product_category_<category>
+
+Reemplaza `<category>` con el nombre en minúsculas de la métrica deseada, como `product_category_electronics`.
+## Categorías de Producto
+
+El `enum` `ProductCategoryEnum` se define con las siguientes categorías de producto:
+
+```java
+public enum ProductCategoryEnum {
+    ELECTRONICS("Electronics"),
+    CLOTHING("Clothing"),
+    BOOKS("Books"),
+    TOYS("Toys"),
+    BEAUTY("Beauty"),
+    SPORTS("Sports");
+}
+```

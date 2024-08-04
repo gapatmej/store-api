@@ -63,6 +63,7 @@ public class SecurityConfiguration {
                         authorizeRequests
                                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                                 .requestMatchers("/h2-console/**").permitAll()
+                                .requestMatchers("/actuator/**").permitAll()
                                 .requestMatchers("/api/authenticate").permitAll()
                                 .requestMatchers("/api/admin/**").hasAuthority(AuthoritiesConstants.ADMIN)
                                 .requestMatchers("/public/**").permitAll()

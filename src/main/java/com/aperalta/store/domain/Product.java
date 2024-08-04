@@ -3,6 +3,7 @@ package com.aperalta.store.domain;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import com.aperalta.store.repository.enumeration.ProductCategoryEnum;
 import jakarta.persistence.*;
 
 @Entity
@@ -17,6 +18,10 @@ public class Product extends AbstractMainEntity  implements Serializable {
 
     @Column(name = "barcode", length = 50, unique = true)
     private String barcode;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "product_category", nullable = false)
+    private ProductCategoryEnum productCategory;
 
     @Column(name = "name", length = 200, nullable = false)
     private String name;
@@ -55,6 +60,14 @@ public class Product extends AbstractMainEntity  implements Serializable {
 
     public void setBarcode(String barcode) {
         this.barcode = barcode;
+    }
+
+    public ProductCategoryEnum getProductCategory() {
+        return productCategory;
+    }
+
+    public void setProductCategory(ProductCategoryEnum productCategory) {
+        this.productCategory = productCategory;
     }
 
     public String getName() {

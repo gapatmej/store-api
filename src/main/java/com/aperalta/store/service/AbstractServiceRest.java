@@ -13,5 +13,5 @@ public interface AbstractServiceRest<D extends AbstractMainDTO> {
 
     Optional<D> findOneDto(Long id);
 
-    void delete(Long id);
+    Optional<D> delete(Long id);
 }
