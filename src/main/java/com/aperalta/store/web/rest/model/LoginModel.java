@@ -3,9 +3,6 @@ package com.aperalta.store.web.rest.model;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-/**
- * View Model object for storing a user's credentials.
- */
 public class LoginModel {
 
     @NotNull
@@ -32,7 +29,6 @@ public class LoginModel {
         this.password = password;
     }
 
-    // prettier-ignore
     @Override
     public String toString() {
         return "LoginVM{" +

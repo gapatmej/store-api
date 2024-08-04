@@ -17,10 +17,20 @@ public class HeaderUtil {
         return headers;
     }
 
-    public static HttpHeaders createEntityCreationAlert(boolean enableTranslation, String entityName, String param) {
-        String message = enableTranslation ? entityName + ".crudMessages.created"
-            : "A new " + entityName + " is created with identifier " + param;
+    public static HttpHeaders createEntityCreationAlert( String entityName, String param) {
+        String message =  entityName + " is created with identifier " + param;
         return createAlert(message, param);
     }
+
+    public static HttpHeaders createEntityUpdateAlert(String entityName, String param) {
+        String message = entityName + " is updated with identifier " + param;
+        return createAlert(message, param);
+    }
+
+    public static HttpHeaders createEntityDeletionAlert(String entityName, String param) {
+        String message = entityName + " is deleted with identifier " + param;
+        return createAlert(message, param);
+    }
+
 
 }

@@ -18,9 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-/**
- * Controller to authenticate users.
- */
 @RestController
 @RequestMapping("/api")
 public class UserJWTResource {
