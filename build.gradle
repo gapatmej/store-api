@@ -6,6 +6,17 @@ plugins {
 }
 
 group = 'com.aperalta'
+
+scmVersion {
+	tag {
+		prefix = 'v'
+	}
+	versionIncrementer 'incrementMinorIfNotOnRelease'
+	nextVersion {
+		suffix = 'v'
+	}
+}
+
 project.version = scmVersion.version
 
 java {
@@ -46,11 +57,3 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
-scmVersion {
-	repository {
-		type = 'git'
-	}
-	tag {
-		prefix = 'store-api'
-	}
-}
