@@ -49,6 +49,22 @@ Axion-Release es un plugin para Gradle que facilita la gestión y creación de v
     - El plugin incrementará la versión basada en la configuración predeterminada (por ejemplo, `patch`) y creará un nuevo tag `v1.0.1`.
     - El `build.gradle` será actualizado automáticamente a `1.0.1`.
 
+# Guía para construir y ejecutar una imagen docker
+
+## Paso 1: Construir la Imagen Docker
+
+Desde el directorio raíz del proyecto, construir la imagen Docker usando el siguiente comando:
+
+```bash
+docker build -t store-app:latest .
+```
+## Paso 2: Ejecutar la imagen docker
+
+Una vez que la imagen esté construida, ejecutar un contenedor basado en esta imagen con el siguiente comando:
+```bash
+docker run -d -p 8081:8081 store-app:latest
+```
+
 # Uso de API
 
 Esta API permite la gestión de productos con varios endpoints para crear, actualizar, eliminar y consultar productos.

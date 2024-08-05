@@ -1,0 +1,15 @@
+.gradle/
+build/
+!build/libs/*.jar
+.gradle-wrapper.jar
+.gradle-wrapper.properties
+gradle-wrapper.jar
+gradle-wrapper.properties
+gradle/
+.idea/
+*.iml
+*.log
+*.md
+*.git
+.git/
+*.gitignore
