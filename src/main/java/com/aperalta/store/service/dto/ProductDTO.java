@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 
-public class ProductDTO extends AbstractMainDTO {
+public class ProductDTO extends AbstractMainDTO<ProductDTO> {
 
     @NotNull(message = "mainCode cannot be null")
     private String mainCode;
@@ -40,6 +40,10 @@ public class ProductDTO extends AbstractMainDTO {
     public void setMainCode(String mainCode) {
         this.mainCode = mainCode;
     }
+    public ProductDTO mainCode(String mainCode) {
+        this.mainCode = mainCode;
+        return this;
+    }
 
     public String getAuxiliaryCode() {
         return auxiliaryCode;
@@ -47,6 +51,10 @@ public class ProductDTO extends AbstractMainDTO {
 
     public void setAuxiliaryCode(String auxiliaryCode) {
         this.auxiliaryCode = auxiliaryCode;
+    }
+    public ProductDTO auxiliaryCode(String auxiliaryCode) {
+        this.auxiliaryCode = auxiliaryCode;
+        return this;
     }
 
     public String getBarcode() {
@@ -57,12 +65,21 @@ public class ProductDTO extends AbstractMainDTO {
         this.barcode = barcode;
     }
 
+    public ProductDTO barcode(String barcode) {
+        this.barcode = barcode;
+        return this;
+    }
+
     public ProductCategoryEnum getProductCategory() {
         return productCategory;
     }
 
     public void setProductCategory(ProductCategoryEnum productCategory) {
         this.productCategory = productCategory;
+    }
+    public ProductDTO productCategory(ProductCategoryEnum productCategory) {
+        this.productCategory = productCategory;
+        return this;
     }
 
     public String getName() {
@@ -72,6 +89,10 @@ public class ProductDTO extends AbstractMainDTO {
     public void setName(String name) {
         this.name = name;
     }
+    public ProductDTO name(String name) {
+        this.name = name;
+        return this;
+    }
 
     public BigDecimal getPrice() {
         return price;
@@ -79,6 +100,10 @@ public class ProductDTO extends AbstractMainDTO {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+    public ProductDTO price(BigDecimal price) {
+        this.price = price;
+        return this;
     }
 
     public String getAttribute1() {
@@ -88,6 +113,10 @@ public class ProductDTO extends AbstractMainDTO {
     public void setAttribute1(String attribute1) {
         this.attribute1 = attribute1;
     }
+    public ProductDTO attribute1(String attribute1) {
+        this.attribute1 = attribute1;
+        return  this;
+    }
 
     public String getAttribute2() {
         return attribute2;
@@ -96,6 +125,10 @@ public class ProductDTO extends AbstractMainDTO {
     public void setAttribute2(String attribute2) {
         this.attribute2 = attribute2;
     }
+    public ProductDTO attribute2(String attribute2) {
+        this.attribute2 = attribute2;
+        return this;
+    }
 
     public boolean isActive() {
         return active;
@@ -103,5 +136,9 @@ public class ProductDTO extends AbstractMainDTO {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+    public ProductDTO active(boolean active) {
+        this.active = active;
+        return this;
     }
 }

@@ -1,6 +1,6 @@
 package com.aperalta.store.service.dto;
 
-public class AbstractMainDTO {
+public class AbstractMainDTO<T> {
 
     protected Long id;
 
@@ -10,5 +10,9 @@ public class AbstractMainDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+    public T id(Long id) {
+        this.id = id;
+        return (T) this;
     }
 }

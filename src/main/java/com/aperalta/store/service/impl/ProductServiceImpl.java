@@ -7,6 +7,7 @@ import com.aperalta.store.service.ProductService;
 import com.aperalta.store.service.dto.ProductDTO;
 import com.aperalta.store.service.mapper.ProductMapper;
 import com.aperalta.store.utils.GsonUtils;
+import com.aperalta.store.web.rest.errors.BadRequestAlertException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,9 @@ public class ProductServiceImpl extends AbstractService implements ProductServic
 
     @Override
     public ProductDTO save(ProductDTO productDTO) {
+        if(productDTO.getId() != null && !findOne(productDTO.getId()).isPresent()){
+            throw new BadRequestAlertException("Producto no encontrado", "product", "idNotFound");
+        }
         ProductDTO result = productMapper.toDto(save(productMapper.toEntity(productDTO)));
         log.debug("Product saved : {}", GsonUtils.entityToJson(result));
         return result;
