@@ -33,7 +33,9 @@ jobs:
 
       - name: Build and push Docker image
         run: |
+          VERSION=${GITHUB_REF#refs/tags/v}
+          echo "Building image with tag: $VERSION"
           docker build -t ${{ secrets.DOCKER_USERNAME }}/store-api:latest .
-          docker tag ${{ secrets.DOCKER_USERNAME }}/store-api:latest ${{ secrets.DOCKER_USERNAME }}/demo-app:${GITHUB_REF##*/v}
+          docker tag ${{ secrets.DOCKER_USERNAME }}/store-api:latest ${{ secrets.DOCKER_USERNAME }}/store-api:${VERSION}
           docker push ${{ secrets.DOCKER_USERNAME }}/store-api:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/store-api:${GITHUB_REF##*/v}
+          docker push ${{ secrets.DOCKER_USERNAME }}/store-api:${VERSION}
