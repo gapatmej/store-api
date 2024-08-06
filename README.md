@@ -64,6 +64,12 @@ Una vez que la imagen esté construida, ejecutar un contenedor basado en esta im
 ```bash
 docker run -d -p 8081:8081 store-app:latest
 ```
+# Levantar un contenedor con la imagen de docker hub
+Ejecuta el siguiente comando para levantar un contenedor usando la imagen `gapatmej/store-api`:
+
+```sh
+docker run -d -p 8081:8081 --name store-api gapatmej/store-api:latest
+```
 
 # Uso de API
 
