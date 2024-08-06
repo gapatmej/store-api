@@ -77,9 +77,33 @@ Esta API permite la gestión de productos con varios endpoints para crear, actua
 
 ## Endpoints
 
-### 1. Create Product
+### 1. Autenticación
 
-**Endpoint:** `/products`
+**Endpoint:** `/api/authenticate`
+
+**Method:** `POST`
+
+**Request Body:**
+```json
+{
+  "username": "admin",
+  "password": "admin"
+}
+```
+**Response:**
+
+- `200 OK` - Autenticado
+- `401 Unauthorized` - Credenciales no válidas
+
+**Example JSON Response:**
+```json
+{
+  "id_token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTcyMjk5NDMxNn0._--N0xuAUKuTMZxuRnIb2gDL9M8MRo1FbQnzSK5PVpt7W0VvMmDCEFEoDf_Ch9yngMEC7EDQBso7aZhcuYRFDw"
+}
+```
+### 2. Create Product
+
+**Endpoint:** `/api/products`
 
 **Method:** `POST`
 
@@ -95,9 +119,28 @@ Esta API permite la gestión de productos con varios endpoints para crear, actua
   "active": true
 }
 ```
-### 2. Update Product
+**Response:**
 
-**Endpoint:** `/products`
+- `201 Created` - Producto creado
+- `401 Unauthorized` - Credenciales no válidas
+- `400 Bad Request` - Request inválido
+
+**Example JSON Response:**
+```json
+{
+  "id": 1001,
+  "mainCode": "017",
+  "productCategory": "ELECTRONICS",
+  "name": "Producto 1 con accesorios",
+  "price": 10,
+  "attribute1": "Con mantenimiento",
+  "attribute2": "",
+  "active": true
+}
+```
+### 3. Update Product
+
+**Endpoint:** `/api/products`
 
 **Method:** `PUT`
 
@@ -114,15 +157,39 @@ Esta API permite la gestión de productos con varios endpoints para crear, actua
   "active": false
 }
 ```
-### 3. Delete Product
+**Response:**
 
-**Endpoint:** `/products/{id}`
+- `200 OK` - Producto actualizado
+- `401 Unauthorized` - Credenciales no válidas
+- `400 Bad Request` - Request inválido
+
+**Example JSON Response:**
+```json
+{
+  "id": "1001",
+  "mainCode": "017",
+  "productCategory": "ELECTRONICS",
+  "name": "Producto 1 con accesorios",
+  "price": 10,
+  "attribute1": "Con mantenimiento",
+  "attribute2": "",
+  "active": false
+}
+```
+### 4. Delete Product
+
+**Endpoint:** `/api/products/{id}`
 
 **Method:** `DELETE`
+**Response:**
 
-### 4. Get All Products
+- `204 No Content` - Exito sin contenido
+- `401 Unauthorized` - Credenciales no válidas
+- `400 Bad Request` - Id inválido
 
-**Endpoint:** `/products`
+### 5. Get All Products
+
+**Endpoint:** `/api/products`
 
 **Method:** `GET`
 
@@ -148,16 +215,33 @@ Esta API permite la gestión de productos con varios endpoints para crear, actua
 - `KEY_SEPARATOR (\\.)`
 - `OR (*)`
 
-**Response:**
-
-- `200 OK` - Lista de productos
-
 **Example Request:**
 ```http
 GET /products?search=id[]1001*name:con accesorios&page=0&size=5
 ```
+**Response:**
 
-### 5. Get Product by ID
+- `200 OK` - Consulta ejecutada con éxito
+- `401 Unauthorized` - Credenciales no válidas
+
+**Example JSON Response:**
+```json
+[
+  {
+    "id": 1001,
+    "mainCode": "021",
+    "auxiliaryCode": null,
+    "barcode": null,
+    "productCategory": "CLOTHING",
+    "name": "Producto 1 con accesorios",
+    "price": 10.0000,
+    "attribute1": "Con mantenimiento",
+    "attribute2": "",
+    "active": true
+  }
+]
+```
+### 6. Get Product by ID
 
 **Endpoint:** `/products/{id}`
 
@@ -166,8 +250,10 @@ GET /products?search=id[]1001*name:con accesorios&page=0&size=5
 **Response:**
 
 - `200 OK` - Producto encontrado
+- `401 Unauthorized` - Credenciales no válidas
 - `404 Not Found` - Producto no encontrado
-
+- `400 Bad Request` - Id inválido
+- 
 **Example JSON Response:**
 ```json
 {
@@ -202,7 +288,7 @@ Visita [http://localhost:8081/actuator/metrics](http://localhost:8080/actuator/m
 
 Para ver métricas específicas para una categoría, utiliza la URL:
 
-http://localhost:8080/actuator/metrics/product_category_<category>
+```http://localhost:8080/actuator/metrics/product_category_<category>```
 
 Reemplaza `<category>` con el nombre en minúsculas de la métrica deseada, como `product_category_electronics`.
 ## Categorías de Producto
